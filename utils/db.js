@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const url = process.env.URL;
+const url = process.env.MAINURL;
 // const mainURL = "mongodb+srv://classBuild:classBuild@cluster0.75kqx.mongodb.net/classBuildTest?retryWrites=true&w=majority
 
 mongoose.connect(url).then(() => {

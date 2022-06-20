@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const transport = require("../utils/email");
+const { verifiedEmail, signInverifiedEmail, token } = require("../utils/sendMail");
 
 const getAllUsers = async (req, res) => {
 	try {
@@ -78,49 +79,29 @@ const updateUser = async (req, res) => {
 	}
 };
 
+
 const createUser = async (req, res) => {
 	try {
 		const { fullName, email, password } = req.body;
 
 		const salt = await bcrypt.genSalt(10);
 		const hashed = await bcrypt.hash(password, salt);
-		const image = await cloudinary.uploader.upload(req.file.path);
-
-		const fakeToken = crypto.randomBytes(64).toString("hex");
-
-		const token = jwt.sign({ fakeToken }, process.env.SECRET, {
-			expiresIn: process.env.EXPIRES,
-		});
+		// const image = await cloudinary.uploader.upload(req.file.path);
+		// const getToken = crypto.randomBytes(32).toString("hex");
+		// const token = jwt.sign({ getToken }, "ThisIsIt", { expiresIn: "3d" });
 
 		const user = await userModel.create({
 			fullName,
 			email,
 			password: hashed,
-			avatar: image.secure_url,
-			avatarID: image.public_id,
 			verifiedToken: token,
 		});
 
-		const url = `http://localhost:2332/api/user/${user._id}/${token}`;
-
-		const mailOptions = {
-			from: "no-reply@gmail.com",
-			to: email,
-			subject: "Account verification",
-			html: `<h3>
-            This is for account verification, use this <a
-            href="${url}"
-            >Link to countinue</a>
-            </h3>`,
-		};
-
-		transport.sendMail(mailOptions, (err, info) => {
-			if (err) {
-				console.log(err.message);
-			} else {
-				console.log("Success", info.response);
-			}
-		});
+		verifiedEmail(email, user._id)
+			.then((result) => {
+				console.log(result);
+			})
+			.catch((err) => console.log(err));
 
 		res.status(200).json({
 			message: "An email has been sent to you",
@@ -129,6 +110,7 @@ const createUser = async (req, res) => {
 		res.status(404).json({
 			message: error.message,
 		});
+		console.log(error);
 	}
 };
 
@@ -138,7 +120,7 @@ const verifyUser = async (req, res) => {
 		if (user) {
 			if (user.verifiedToken === req.params.token) {
 				await userModel.findByIdAndUpdate(
-					req.params.id,
+					user._id,
 					{
 						verifiedToken: "",
 						isVerified: true,
@@ -165,6 +147,8 @@ const verifyUser = async (req, res) => {
 	}
 };
 
+
+
 const signinUser = async (req, res) => {
 	try {
 		const { email, password } = req.body;
@@ -174,45 +158,21 @@ const signinUser = async (req, res) => {
 			const check = await bcrypt.compare(password, user.password);
 
 			if (check) {
-				if (user.isVerified && user.verifiedToken !== "") {
+				if (user.verifiedToken === "") {
 					const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
 						expiresIn: process.env.EXPIRES2,
 					});
-
 					const { password, ...info } = user._doc;
-
 					res.status(200).json({
 						message: `welcome back ${user.fullName}`,
 						data: { token, ...info },
 					});
 				} else {
-					const fakeToken = crypto.randomBytes(64).toString("hex");
-
-					const token = jwt.sign({ fakeToken }, process.env.SECRET, {
-						expiresIn: process.env.EXPIRES,
-					});
-
-					const url = `http://localhost:2332/api/user/${user._id}/${token}`;
-
-					const mailOptions = {
-						from: "no-reply@gmail.com",
-						to: email,
-						subject: "Account verification",
-						html: `<h3>
-            This is for account verification, use this <a
-            href="${url}"
-            >Link to countinue</a>
-            </h3>`,
-					};
-
-					transport.sendMail(mailOptions, (err, info) => {
-						if (err) {
-							console.log(err.message);
-						} else {
-							console.log("Success", info.response);
-						}
-					});
-
+					verifiedEmail(email, user._id)
+						.then((result) => {
+							console.log(result);
+						})
+						.catch((err) => console.log(err));
 					res.status(200).json({
 						message: "An email has been sent to you",
 					});
@@ -344,6 +304,6 @@ module.exports = {
 	updateUser,
 	deleteUser,
 	newPassword,
-	verifyUser,
 	signinUser,
+	verifyUser
 };

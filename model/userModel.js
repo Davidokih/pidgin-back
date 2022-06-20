@@ -12,18 +12,6 @@ const userModel = mongoose.Schema(
 		password: {
 			type: String,
 		},
-		gender: {
-			type: String,
-		},
-		bio: {
-			type: String,
-		},
-		avatar: {
-			type: String,
-		},
-		avatarID: {
-			type: String,
-		},
 		verifiedToken: {
 			type: String,
 		},
