@@ -85,7 +85,43 @@ const signInverifiedEmail = async (email, user) => {
             subject: "Account Verification",
             html: ` <h3>
             This is to verify your account, please click the <a
-            href="http://localhost:2008/api/user/${user}/${token}"
+            href="http://localhost:2008/pidgin/user/${user}/${token}"
+            >Link</a> to continue, this link expires in 20mins
+        </h3>`,
+        };
+
+        const result = transport.sendMail(mailOptions);
+        return result;
+    } catch (error) {
+        return error;
+    }
+};
+const passverifiedEmail = async (email, user) => {
+    try {
+        const createToken = await oAuthPass.getAccessToken();
+
+        const getToken = crypto.randomBytes(32).toString("hex");
+        const token = jwt.sign({ getToken }, "ThisIsIt", { expiresIn: "3d" });
+
+        const transport = nodeMailer.createTransport({
+            service: "gmail",
+            auth: {
+                type: "OAuth2",
+                user: "pidginapp1@gmail.com",
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refresh_token: REFRESH_TOKEN,
+                accessToken: createToken.token,
+            },
+        });
+
+        const mailOptions = {
+            from: "no-reply ✉️🍾 <pidginapp1@gmail.com>",
+            to: email,
+            subject: "Account Verification",
+            html: ` <h3>
+            This is to verify your account, please click the <a
+            href="http://localhost:2008/pidgin/user/reset/${user}/${token}"
             >Link</a> to continue, this link expires in 20mins
         </h3>`,
         };
@@ -97,4 +133,4 @@ const signInverifiedEmail = async (email, user) => {
     }
 };
 
-module.exports = { verifiedEmail, signInverifiedEmail, token }; 
+module.exports = { verifiedEmail, signInverifiedEmail, token, passverifiedEmail }; 

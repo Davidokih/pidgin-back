@@ -16,7 +16,7 @@ const createLike = async (req, res) => {
 		const createDefinition = await definitionModel.findById(
 			req.params.definition
 		);
-		const createLike = await new likeModel({ user: req.params.id });
+		const createLike = await new likeModel({ _id: user._id });
 
 		createLike.definition = createDefinition;
 		createLike.save();

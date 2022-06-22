@@ -24,7 +24,7 @@ const createDefinition = async (req, res) => {
 				data: newDefinition,
 			});
 		} else {
-			const createPost = await postModel.findById(req.params.post);
+			const createPost = await postModel.findById(req.params.postId);
 			const newDefinition = new definitionModel({
 				useCase,
 				meaning,
@@ -56,7 +56,7 @@ const getDefinition = async (req, res) => {
 			.populate("definition");
 
 		res.status(200).json({
-			message: "gotten Post",
+			message: "Gotten Post",
 			data: post,
 		});
 	} catch (error) {

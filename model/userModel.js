@@ -24,16 +24,18 @@ const userModel = mongoose.Schema(
 				ref: "posts",
 			},
 		],
+		bio: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "bios",
+			},
+		],
 		saved: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: "saves",
 			},
-		],
-		definition: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "definitions",
-		},
+		]
 	},
 	{ timestamps: true }
 );

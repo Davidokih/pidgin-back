@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const transport = require("../utils/email");
-const { verifiedEmail, signInverifiedEmail, token } = require("../utils/sendMail");
+const { verifiedEmail, signInverifiedEmail, token, passverifiedEmail } = require("../utils/sendMail");
 
 const getAllUsers = async (req, res) => {
 	try {
@@ -131,7 +131,7 @@ const verifyUser = async (req, res) => {
 					message: "Account is now Verify, please signin now!",
 				});
 			} else {
-				res.status(201).json({
+				res.status(400).json({
 					message: "You can't do this",
 				});
 			}
@@ -168,7 +168,7 @@ const signinUser = async (req, res) => {
 						data: { token, ...info },
 					});
 				} else {
-					verifiedEmail(email, user._id)
+					signInverifiedEmail(email, user._id)
 						.then((result) => {
 							console.log(result);
 						})
@@ -202,36 +202,18 @@ const resetUser = async (req, res) => {
 
 		if (user) {
 			if (user.isVerified) {
-				const fakeToken = crypto.randomBytes(64).toString("hex");
 
-				const token = jwt.sign({ fakeToken }, process.env.SECRET, {
-					expiresIn: process.env.EXPIRES,
-				});
+				passverifiedEmail(email, user._id)
+					.then((result) => {
+						console.log(result);
+					})
+					.catch((err) => console.log(err));
 
-				const url = `http://localhost:2332/api/user/reset/${user._id}/${token}`;
-
-				const mailOptions = {
-					from: "no-reply@gmail.com",
-					to: email,
-					subject: "Request for Password Reset",
-					html: `<h3>
-            This is a request for Password reset, use this <a
-            href="${url}"
-            >Link to countinue</a>
-            </h3>`,
-				};
-
-				transport.sendMail(mailOptions, (err, info) => {
-					if (err) {
-						console.log(err.message);
-					} else {
-						console.log("Success", info.response);
-					}
-				});
 
 				res.status(200).json({
 					message: "An email has been sent to you",
 				});
+
 			} else {
 				res.status(200).json({
 					message: "Please go sign in first",

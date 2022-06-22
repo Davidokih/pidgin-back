@@ -1,4 +1,3 @@
-const userModel = require("../model/userModel");
 const likeModel = require("../model/likeModel");
 const definitionModel = require("../model/definitionModel");
 const mongoose = require("mongoose");
@@ -9,7 +8,7 @@ const createMyLike = async (req, res) => {
 
 		if (user) {
 			res.status(201).json({
-				message: "user have Already liked Before",
+				message: "User Has Already liked Before",
 			});
 		} else {
 			const createPost = await definitionModel.findById(req.params.definition);
@@ -40,7 +39,7 @@ const getMyLike = async (req, res) => {
 			.populate("like");
 
 		res.status(200).json({
-			message: "gotten Post",
+			message: " Like Gotten Successfully",
 			data: post,
 		});
 	} catch (error) {
@@ -59,7 +58,7 @@ const deleteMyLike = async (req, res) => {
 		getPost.save();
 
 		res.status(201).json({
-			message: "deleted",
+			message: "Like Deleted Successfully",
 		});
 	} catch (error) {
 		res.status(404).json({
@@ -67,16 +66,6 @@ const deleteMyLike = async (req, res) => {
 		});
 	}
 };
-
-// const createDefinition = async(req, res)=>{
-//     try {
-
-//     } catch (error) {
-//         res.status(404).json({
-//             message: error.message,
-//         })
-//     }
-// }
 
 module.exports = {
 	getMyLike,
