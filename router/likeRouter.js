@@ -10,6 +10,6 @@ const router = express.Router();
 router.route("/:definition/like").post(createMyLike);
 router.route("/").get(getMyLike);
 
-router.route("/:definition/like/:like").delete(deleteMyLike);
+router.route("/:id/:definition/like/:like").delete(deleteMyLike);
 
 module.exports = router;

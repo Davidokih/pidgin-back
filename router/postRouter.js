@@ -7,7 +7,7 @@ const {
 } = require("../controller/postController");
 const router = express.Router();
 
-router.route("/posts").get(getAllPost);
+router.route("/").get(getAllPost);
 router.route("/:id/createPosts").post(createPost);
 
 router.route("/:id/:postid").get(getPost).delete(deletePost);

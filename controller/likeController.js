@@ -1,7 +1,7 @@
 const userModel = require("../model/userModel");
 const postModel = require("../model/postModel");
 const likeModel = require("../model/likeModel");
-const definitionModel = require("../model/likeModel");
+const definitionModel = require("../model/definitionModel");
 const mongoose = require("mongoose");
 
 const createLike = async (req, res) => {
@@ -33,6 +33,7 @@ const createLike = async (req, res) => {
 		res.status(404).json({
 			message: error.message,
 		});
+		console.log(error);
 	}
 };
 

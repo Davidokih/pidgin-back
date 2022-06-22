@@ -6,12 +6,6 @@ const likeModel = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "users",
 		},
-
-		like: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "likes",
-		},
-
 		definition: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "definitions",

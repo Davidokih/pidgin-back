@@ -52,8 +52,22 @@ const createDefinition = async (req, res) => {
 const getDefinition = async (req, res) => {
 	try {
 		const post = await postModel
-			.findById(req.params.post)
+			.findById(req.params.postId)
 			.populate("definition");
+
+		res.status(200).json({
+			message: "Gotten Post",
+			data: post,
+		});
+	} catch (error) {
+		res.status(404).json({
+			message: error.message,
+		});
+	}
+};
+const getAllDefinition = async (req, res) => {
+	try {
+		const post = await definitionModel.find();
 
 		res.status(200).json({
 			message: "Gotten Post",
@@ -70,19 +84,20 @@ const deleteDefinition = async (req, res) => {
 	try {
 		const getPost = await postModel.findById(req.params.post);
 		const remove = await definitionModel.findByIdAndRemove(
-			req.params.definition
+			req.params.definitionId
 		);
 
 		getPost.definition.pull(remove);
 		getPost.save();
 
-		res.status(201).json({
+		res.status(200).json({
 			message: "deleted",
 		});
 	} catch (error) {
 		res.status(404).json({
 			message: error.message,
 		});
+		console.log(error);
 	}
 };
 
@@ -100,4 +115,5 @@ module.exports = {
 	deleteDefinition,
 	createDefinition,
 	getDefinition,
+	getAllDefinition
 };
