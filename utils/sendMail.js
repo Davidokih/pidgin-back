@@ -49,7 +49,7 @@ const verifiedEmail = async (email, user) => {
             subject: "Account Verification",
             html: ` <h3>
             This is to verify your account, please click the <a
-            href="http://localhost:2008/pidgin/user/${user}/${token}"
+            href="http://localhost:3000/auth/${user}/${token}"
             >Link</a> to continue, this link expires in 20mins
         </h3>`,
         };
@@ -85,7 +85,7 @@ const signInverifiedEmail = async (email, user) => {
             subject: "Account Verification",
             html: ` <h3>
             This is to verify your account, please click the <a
-            href="http://localhost:2008/pidgin/user/${user}/${token}"
+            href="http://localhost:3000/auth/${user}/${token}"
             >Link</a> to continue, this link expires in 20mins
         </h3>`,
         };

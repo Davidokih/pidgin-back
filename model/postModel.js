@@ -9,6 +9,9 @@ const postModel = mongoose.Schema(
 		useCase: {
 			type: String,
 		},
+		userDefinition: {
+			type: String,
+		},
 
 		user: {
 			type: mongoose.Schema.Types.ObjectId,

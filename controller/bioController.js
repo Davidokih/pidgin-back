@@ -1,6 +1,7 @@
 const userModel = require("../model/userModel");
 const bioModel = require("../model/bioModel");
 const mongoose = require("mongoose");
+const cloudinary = require("../utils/cloudinary");
 
 const getAllBio = async (req, res) => {
   try {
@@ -47,19 +48,18 @@ const deleteBio = async (req, res) => {
 };
 const createBio = async (req, res) => {
   try {
-    const { about, gender } = req.body;
+    const { bio, gender } = req.body;
     const getUser = await userModel.findById(req.params.id);
+    const image = await cloudinary.uploader.upload(req.file.path);
     const bioContent = new bioModel({
-      about,
+      bio,
       gender,
-      avatar: req.file.path,
+      avatar: image.secure_url,
+      avatarID: image.public_id,
     });
 
     bioContent.user = getUser;
     bioContent.save();
-
-    getUser.bio.push(mongoose.Types.ObjectId(bioContent._id));
-    getUser.save();
 
     res.status(201).json({
       status: "Created Successfully",
@@ -69,6 +69,7 @@ const createBio = async (req, res) => {
     res.status(404).json({
       message: "Can't create bio",
     });
+    console.log(error);
   }
 };
 

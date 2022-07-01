@@ -9,7 +9,7 @@ const {
 const router = express.Router();
 
 router.route("/:id/:postId/definitions").post(createDefinition);
-router.route("/:id/:postId/:definitionId").get(getDefinition);
+router.route("/:id/:postId").get(getDefinition);
 router.route("/").get(getAllDefinition);
 
 router.route("/:id/:postId/:definitionId").delete(deleteDefinition);

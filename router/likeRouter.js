@@ -1,15 +1,15 @@
 const express = require("express");
 const {
-	getMyLike,
+	viewLike,
+	createLike,
+	unLike,
+} = require("../controller/likeController");
+const { getMyLike,
 	createMyLike,
-	deleteMyLike,
-} = require("../controller/newLikeController");
+	deleteMyLike, } = require("../controller/newLikeController");
 const router = express.Router();
 
-// router.route("/likes").get(getAllPost);
-router.route("/:definition/like").post(createMyLike);
-router.route("/").get(getMyLike);
-
-router.route("/:id/:definition/like/:like").delete(deleteMyLike);
+router.route("/:definition/like").get(viewLike).post(createLike).post(createMyLike).get(getMyLike);
+router.route("/:definition/:like").delete(unLike).delete(deleteMyLike);
 
 module.exports = router;

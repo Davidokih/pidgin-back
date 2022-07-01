@@ -1,86 +1,62 @@
 const userModel = require("../model/userModel");
-const postModel = require("../model/postModel");
-const likeModel = require("../model/likeModel");
 const definitionModel = require("../model/definitionModel");
+const likeModel = require("../model/likeModel");
 const mongoose = require("mongoose");
 
 const createLike = async (req, res) => {
 	try {
-		const user = await userModel.findById(req.params.id);
-
-		// if (user) {
-		// 	res.status(201).json({
-		// 		message: "Already Liked",
-		// 	});
-		// } else {
-		const createDefinition = await definitionModel.findById(
-			req.params.definition
+		const likeComment = await definitionModel.findByIdAndUpdate(
+			req.params.definition,
+			{
+				$push: { user: req.params.id },
+			},
+			{ new: true }
 		);
-		const createLike = await new likeModel({ _id: user._id });
 
-		createLike.definition = createDefinition;
-		createLike.save();
-
-		createDefinition.like.push(mongoose.Types.ObjectId(createLike._id));
-		createDefinition.save();
-
-		res.status(201).json({
-			message: "Like Added",
-			data: createLike,
-		});
+		res.status(201).json({ message: "definition Liked", data: likeComment });
 		// }
 	} catch (error) {
-		res.status(404).json({
-			message: error.message,
-		});
-		console.log(error);
+		res.status(404).json({ message: error.message });
 	}
 };
 
-const deleteLike = async (req, res) => {
+const viewLike = async (req, res) => {
 	try {
-		const post = await postModel.findById(req.params.post);
-		const remove = await likeModel.findByIdAndRemove(req.params.like);
+		const addLike = await definitionModel.findById(req.params.definition).populate("like");
 
-		post.like.pull(remove);
-		post.save();
-
-		res.status(200).json({
-			message: "Deleted successfully",
-		});
-	} catch (error) {
-		res.status(404).json({
-			message: error.message,
-		});
+		res.status(201).json({ message: "add Like", data: addLike });
+	} catch (err) {
+		res.status(404).json({ message: err.message });
 	}
 };
 
-const getLikes = async (req, res) => {
+const unLike = async (req, res) => {
 	try {
-		const getLikes = await likeModel.find();
-		res.status(200).json({
-			message: "like successfully",
-			data: getLikes,
-		});
+		const likeComment = await definitionModel.findByIdAndUpdate(
+			req.params.definition,
+			{
+				$pull: { user: req.params.id },
+			},
+			{ new: true }
+		);
+
+		res.status(201).json({ message: "Liked Deleted", data: likeComment });
 	} catch (error) {
-		res.status(404).json({
-			message: error.message,
-		});
+		res.status(404).json({ message: error.message });
 	}
+
 };
 
-// const updatePost = async(req, res)=>{
-//     try {
+// const createLike = async(req, res) => {
+//     try{
 
-//     } catch (error) {
-//         res.status(404).json({
-//             message: error.message,
-//         })
+//     }catch(err){
+//         res.status(404).json({message: err.message})
 //     }
 // }
 
 module.exports = {
+	viewLike,
 	createLike,
-	deleteLike,
-	getLikes,
+	unLike,
 };

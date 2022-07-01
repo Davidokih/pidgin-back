@@ -10,7 +10,7 @@ const definitionModel = mongoose.Schema(
 			type: String,
 		},
 
-		_id: {
+		user: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "users",
 		},

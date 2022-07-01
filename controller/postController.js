@@ -30,25 +30,51 @@ const getPost = async (req, res) => {
 		});
 	}
 };
-const deletePost = async (req, res) => {
+const updatePost = async (req, res) => {
 	try {
-		const post = await postModel.findByIdAndDelete(req.params.id);
+		const { word, useCase, userDefinition } = req.body;
+
+		const getUser = await userModel.findById(req.params.id);
+		const postContent = await postModel.findByIdAndUpdate(req.params.postid, req.body, { new: true });
+		// const remove = await postModel.findByIdAndDelete(req.params.comment);
+
+		// getUser.post.pull(postContent);
+		// getUser.save();
 
 		res.status(200).json({
-			message: "Deleted successfully",
+			message: "updated successfully",
+			data: postContent
 		});
 	} catch (error) {
 		res.status(404).json({
 			message: error.message,
 		});
+		console.log(error);
 	}
 };
+
+const deletePost = async (req, res) => {
+	try {
+		const getPost = await userModel.findById(req.params.id);
+		const postContent = await postModel.findByIdAndDelete(req.params.postid);
+
+		getPost.post.pull(postContent);
+		getPost.save();
+
+		res.status(201).json({ message: "comment removed" });
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
 const createPost = async (req, res) => {
 	try {
-		const { word } = req.body;
+		const { word, useCase, userDefinition } = req.body;
 		const getUser = await userModel.findById(req.params.id);
 		const postContent = new postModel({
 			word,
+			useCase,
+			userDefinition
 		});
 
 		postContent.user = getUser;
@@ -83,4 +109,5 @@ module.exports = {
 	getPost,
 	createPost,
 	deletePost,
+	updatePost
 };

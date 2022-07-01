@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const bioModel = mongoose.Schema(
   {
-    about: {
+    bio: {
       type: String,
     },
     gender: {

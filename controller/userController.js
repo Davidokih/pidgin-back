@@ -47,16 +47,47 @@ const deleteUser = async (req, res) => {
 	}
 };
 
-const updateUser = async (req, res) => {
+const createBio = async (req, res) => {
 	try {
-		const { fullName, bio, gender } = req.body;
+		const { bio, gender } = req.body;
 		const user = await userModel.findById(req.params.id);
 		if (user) {
+			// await cloudinary.uploader.destroy(user.avatarID);
+			const image = await cloudinary.uploader.upload(req.file.path);
+
+			const newUser = await userModel.create(
+				{
+					bio,
+					gender,
+					avatar: image.secure_url,
+					avatarID: image.public_id,
+				},
+			);
+
+			res.status(200).json({
+				message: "success",
+				data: newUser,
+			});
+		}
+	} catch (error) {
+		res.status(404).json({
+			message: error.message,
+		});
+		console.log(error);
+	}
+};
+const updateUser = async (req, res) => {
+
+	try {
+		const user = await userModel.findById(req.params.id);
+		if (user) {
+			const { bio, gender, fullName } = req.body;
+
 			await cloudinary.uploader.destroy(user.avatarID);
 			const image = await cloudinary.uploader.upload(req.file.path);
 
 			const newUser = await userModel.findByIdAndUpdate(
-				req.params.id,
+				user._id,
 				{
 					fullName,
 					bio,
@@ -76,6 +107,7 @@ const updateUser = async (req, res) => {
 		res.status(404).json({
 			message: error.message,
 		});
+		console.log(error);
 	}
 };
 
@@ -146,8 +178,6 @@ const verifyUser = async (req, res) => {
 		});
 	}
 };
-
-
 
 const signinUser = async (req, res) => {
 	try {
@@ -287,5 +317,13 @@ module.exports = {
 	deleteUser,
 	newPassword,
 	signinUser,
+	createBio,
 	verifyUser
 };
+
+
+
+
+
+
+

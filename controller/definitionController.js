@@ -5,47 +5,44 @@ const mongoose = require("mongoose");
 
 const createDefinition = async (req, res) => {
 	try {
-		const { useCase, meaning } = req.body;
+		await userModel.findById(req.params.id);
+		const { meaning } = req.body;
+		const createPost = await postModel.findById(req.params.postId);
+		const newDefinition = new definitionModel({
+			meaning,
+			user: req.params.id,
+			post: req.params.postId
+		});
 
-		const definitions = await definitionModel.findById(req.params.id);
+		newDefinition.post = createPost;
+		newDefinition.save();
 
-		if (definitions) {
-			const newDefinition = await definitionModel.findByIdAndUpdate(
-				definitions._id,
-				{
-					useCase,
-					meaning,
-				},
-				{ new: true }
-			);
+		createPost.definition.push(mongoose.Types.ObjectId(newDefinition._id));
+		createPost.save();
 
-			res.status(201).json({
-				message: "update done",
-				data: newDefinition,
-			});
-		} else {
-			const createPost = await postModel.findById(req.params.postId);
-			const newDefinition = new definitionModel({
-				useCase,
-				meaning,
-				_id: req.params.id,
-			});
+		res.status(201).json({
+			message: "definition created",
+			data: newDefinition,
+		});
 
-			newDefinition.post = createPost;
-			newDefinition.save();
-
-			createPost.definition.push(mongoose.Types.ObjectId(newDefinition._id));
-			createPost.save();
-
-			res.status(201).json({
-				message: "definition created",
-				data: newDefinition,
-			});
-		}
 	} catch (error) {
 		res.status(404).json({
 			message: error.message,
 		});
+		console.log(error);
+	}
+};
+
+const getDefinitionLimit = async (req, res) => {
+	try {
+		const definition = await postModel.findById(req.params.post).populate({
+			path: "definitions",
+			options: { sort: { createdAt: -1 }, limit: 1 },
+		});
+
+		res.status(201).json({ message: "definitions", data: definition });
+	} catch (error) {
+		res.status(404).json({ message: error.message });
 	}
 };
 

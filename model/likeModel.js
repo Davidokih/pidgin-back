@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const likeModel = mongoose.Schema(
 	{
-		_id: {
+		user: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "users",
 		},

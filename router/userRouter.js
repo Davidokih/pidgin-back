@@ -9,6 +9,7 @@ const {
 	deleteUser,
 	newPassword,
 	signinUser,
+	createBio,
 	verifyUser
 } = require("../controller/userController");
 
@@ -24,6 +25,7 @@ router.route("/:id/:token").get(verifyUser);
 
 router.route("/register").post(createUser);
 // router.route("/:id/:token").get(createUser);
+router.route("/:id").post(upload, createBio);
 router.route("/:id").patch(upload, updateUser).delete(deleteUser).get(getUser);
 
 module.exports = router;

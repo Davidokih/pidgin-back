@@ -18,18 +18,35 @@ const userModel = mongoose.Schema(
 		isVerified: {
 			type: Boolean,
 		},
+		avatar: {
+			type: String,
+			default: "https://res.cloudinary.com/dmrqqaapc/image/upload/v1655727638/s0ddjf3ogzij4soowcnc.jpg"
+		},
+		avatarID: {
+			type: String,
+			default: "s0ddjf3ogzij4soowcnc"
+		},
 		post: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: "posts",
 			},
 		],
-		bio: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "bios",
-			},
-		],
+		// bio: [
+		// 	{
+		// 		type: mongoose.Schema.Types.ObjectId,
+		// 		ref: "bios",
+		// 	}
+		// ],
+		bio:
+		{
+			type: String,
+
+		},
+		gender:
+		{
+			type: String,
+		},
 		saved: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
