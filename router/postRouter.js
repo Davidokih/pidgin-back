@@ -10,7 +10,8 @@ const {
 } = require("../controller/postController");
 const router = express.Router();
 
-router.route("/").get(getAllPost).get(searchPost);
+router.route("/").get(getAllPost);
+router.route("/word").get(searchPost);
 // router.route("/").delete(deletePost);
 router.route("/:id/createPosts").post(createPost);
 

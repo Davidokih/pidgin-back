@@ -18,21 +18,21 @@ const getAllPost = async (req, res) => {
 	}
 };
 
-const searchPost = async (req, res) => {
-	try {
-		const search = req.query.searchData
-			? { title: { $regex: req.query.searchData, $options: "i" } }
-			: {};
+// const searchPost = async (req, res) => {
+// try {
+// 		const search = req.query.searchData
+// 			? { title: { $regex: req.query.searchData, $options: "i" } }
+// 			: {};
 
-		const viewData = await postModel.find(search);
+// 		const viewData = await postModel.find(search);
 
-		res
-			.status(200)
-			.json({ total: viewData.length, message: "view", data: viewData });
-	} catch (error) {
-		res.status(404).json({ message: error.message });
-	}
-};
+// 		res
+// 			.status(200)
+// 			.json({ total: viewData.length, message: "view", data: viewData });
+// 	} catch (error) {
+// 		res.status(404).json({ message: error.message });
+// 	}
+// };
 
 const getPost = async (req, res) => {
 	try {
@@ -111,6 +111,18 @@ const createPost = async (req, res) => {
 			message: error.message,
 		});
 	}
+};
+
+const searchPost = async (req, res) => {
+	const keyWord = req.query.search ? {
+		$or: [
+			{ word: { $regex: req.query.search, $options: "i" } },
+			{ word: { $regex: req.query.search, $options: "i" } },
+		]
+	} : {};
+
+	const userWord = await postModel.find(keyWord);
+	res.status(200).send(userWord);
 };
 
 // const updatePost = async(req, res)=>{
