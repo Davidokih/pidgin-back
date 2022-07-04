@@ -36,7 +36,7 @@ const getAllPost = async (req, res) => {
 
 const getPost = async (req, res) => {
 	try {
-		const post = await postModel.findById(req.params.postid);
+		const post = await postModel.findById(req.params.postid).populate('definition');
 
 		res.status(200).json({
 			status: "Success",
