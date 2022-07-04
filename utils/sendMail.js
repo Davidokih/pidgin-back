@@ -44,12 +44,12 @@ const verifiedEmail = async (email, user) => {
         });
 
         const mailOptions = {
-            from: "UGPD ✉️🍾 <pidginapp1@gmail.com>",
+            from: "Pidgin ✉️🍾 <pidginapp1@gmail.com>",
             to: email,
             subject: "Account Verification",
             html: ` <h3>
             This is to verify your account, please click the <a
-            href="http://localhost:3000/auth/${user}/${token}"
+            href="https://pidgin-app.herokuapp.com/auth/${user}/${token}"
             >Link</a> to continue, this link expires in 20mins
         </h3>`,
         };
@@ -80,12 +80,12 @@ const signInverifiedEmail = async (email, user) => {
         });
 
         const mailOptions = {
-            from: "no-reply ✉️🍾 <pidginapp1@gmail.com>",
+            from: "Pidgin ✉️🍾 <pidginapp1@gmail.com>",
             to: email,
             subject: "Account Verification",
             html: ` <h3>
             This is to verify your account, please click the <a
-            href="http://localhost:3000/auth/${user}/${token}"
+            href="https://pidgin-app.herokuapp.com/auth/${user}/${token}"
             >Link</a> to continue, this link expires in 20mins
         </h3>`,
         };
@@ -116,12 +116,12 @@ const passverifiedEmail = async (email, user) => {
         });
 
         const mailOptions = {
-            from: "no-reply ✉️🍾 <pidginapp1@gmail.com>",
+            from: "Pidgin ✉️🍾 <pidginapp1@gmail.com>",
             to: email,
             subject: "Account Verification",
             html: ` <h3>
             This is to verify your account, please click the <a
-            href="http://localhost:2008/pidgin/user/reset/${user}/${token}"
+            href="https://pidgin-app.herokuapp.com/pidgin/user/reset/${user}/${token}"
             >Link</a> to continue, this link expires in 20mins
         </h3>`,
         };
