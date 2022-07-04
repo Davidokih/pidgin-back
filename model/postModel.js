@@ -12,6 +12,12 @@ const postModel = mongoose.Schema(
 		userDefinition: {
 			type: String,
 		},
+		avatar: {
+			type: String,
+		},
+		avatarID: {
+			type: String,
+		},
 
 		user: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -25,10 +31,10 @@ const postModel = mongoose.Schema(
 			},
 		],
 
-		rating: [
+		like: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
-				ref: "ratings",
+				ref: "likes",
 			},
 		],
 	},

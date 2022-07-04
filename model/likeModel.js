@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const likeModel = mongoose.Schema(
 	{
-		user: {
+		_id: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "users",
 		},
 		definition: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "definitions",
-		},
+		}
 	},
 	{ timestamps: true }
 );

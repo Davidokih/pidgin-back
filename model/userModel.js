@@ -20,11 +20,11 @@ const userModel = mongoose.Schema(
 		},
 		avatar: {
 			type: String,
-			default: "https://res.cloudinary.com/dmrqqaapc/image/upload/v1655727638/s0ddjf3ogzij4soowcnc.jpg"
+			default: "https://res.cloudinary.com/dmrqqaapc/image/upload/v1656856348/xe9vjnpt5wjxks65wevo.png"
 		},
 		avatarID: {
 			type: String,
-			default: "s0ddjf3ogzij4soowcnc"
+			default: "xe9vjnpt5wjxks65wevo"
 		},
 		post: [
 			{
@@ -41,11 +41,12 @@ const userModel = mongoose.Schema(
 		bio:
 		{
 			type: String,
-
+			default: "input you bio"
 		},
 		gender:
 		{
 			type: String,
+			default: "input your gender"
 		},
 		saved: [
 			{

@@ -1,10 +1,11 @@
 const userModel = require("../model/userModel");
 const postModel = require("../model/postModel");
 const mongoose = require("mongoose");
+const cloudinary = require("../utils/cloudinary");
 
 const getAllPost = async (req, res) => {
 	try {
-		const post = await postModel.find().sort({ word: "asc" });
+		const post = await postModel.find().sort({ createdAt: "desc" });
 
 		res.status(200).json({
 			status: "Success",
@@ -16,6 +17,23 @@ const getAllPost = async (req, res) => {
 		});
 	}
 };
+
+const searchPost = async (req, res) => {
+	try {
+		const search = req.query.searchData
+			? { title: { $regex: req.query.searchData, $options: "i" } }
+			: {};
+
+		const viewData = await postModel.find(search);
+
+		res
+			.status(200)
+			.json({ total: viewData.length, message: "view", data: viewData });
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
 const getPost = async (req, res) => {
 	try {
 		const post = await postModel.findById(req.params.postid);
@@ -70,6 +88,7 @@ const deletePost = async (req, res) => {
 const createPost = async (req, res) => {
 	try {
 		const { word, useCase, userDefinition } = req.body;
+		// const image = await cloudinary.uploader.upload(req.file.path);
 		const getUser = await userModel.findById(req.params.id);
 		const postContent = new postModel({
 			word,
@@ -109,5 +128,6 @@ module.exports = {
 	getPost,
 	createPost,
 	deletePost,
-	updatePost
+	updatePost,
+	searchPost
 };

@@ -44,7 +44,7 @@ const verifiedEmail = async (email, user) => {
         });
 
         const mailOptions = {
-            from: "no-reply ✉️🍾 <pidginapp1@gmail.com>",
+            from: "UGPD ✉️🍾 <pidginapp1@gmail.com>",
             to: email,
             subject: "Account Verification",
             html: ` <h3>

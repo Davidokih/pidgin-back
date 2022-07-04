@@ -3,20 +3,20 @@ const definitionModel = require("../model/definitionModel");
 const likeModel = require("../model/likeModel");
 const mongoose = require("mongoose");
 
-const createLike = async (req, res) => {
+const likeContent = async (req, res) => {
 	try {
-		const likeComment = await definitionModel.findByIdAndUpdate(
+		const getUser = await definitionModel.findByIdAndUpdate(
 			req.params.definition,
 			{
-				$push: { user: req.params.id },
+				$push: { like: req.params.id },
 			},
 			{ new: true }
 		);
 
-		res.status(201).json({ message: "definition Liked", data: likeComment });
-		// }
+		res.status(201).json({ message: "post created", data: getUser });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
+		console.log(error.message);
 	}
 };
 
@@ -30,21 +30,20 @@ const viewLike = async (req, res) => {
 	}
 };
 
-const unLike = async (req, res) => {
+const disLikeContent = async (req, res) => {
 	try {
-		const likeComment = await definitionModel.findByIdAndUpdate(
+		const getUser = await definitionModel.findByIdAndUpdate(
 			req.params.definition,
 			{
-				$pull: { user: req.params.id },
+				$pull: { like: req.params.id },
 			},
 			{ new: true }
 		);
 
-		res.status(201).json({ message: "Liked Deleted", data: likeComment });
+		res.status(201).json({ message: "post created", data: getUser });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
-
 };
 
 // const createLike = async(req, res) => {
@@ -57,6 +56,6 @@ const unLike = async (req, res) => {
 
 module.exports = {
 	viewLike,
-	createLike,
-	unLike,
+	likeContent,
+	disLikeContent,
 };
