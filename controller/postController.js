@@ -5,7 +5,7 @@ const cloudinary = require("../utils/cloudinary");
 
 const getAllPost = async (req, res) => {
 	try {
-		const post = await postModel.find().sort({ createdAt: "desc" });
+		const post = await postModel.find().sort({ createdAt: "desc" }).populate("definition");
 
 		res.status(200).json({
 			status: "Success",
@@ -36,7 +36,7 @@ const getAllPost = async (req, res) => {
 
 const getPost = async (req, res) => {
 	try {
-		const post = await postModel.findById(req.params.postid).populate('definition');
+		const post = await postModel.findById(req.params.postid).populate("definition");
 
 		res.status(200).json({
 			status: "Success",
