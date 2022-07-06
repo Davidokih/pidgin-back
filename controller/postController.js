@@ -121,7 +121,7 @@ const searchPost = async (req, res) => {
 		]
 	} : {};
 
-	const userWord = await postModel.find(keyWord);
+	const userWord = await postModel.find(keyWord).populate("definition");
 	res.status(200).send(userWord);
 };
 
