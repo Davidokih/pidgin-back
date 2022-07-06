@@ -6,13 +6,14 @@ const {
 	createPost,
 	deletePost,
 	updatePost,
-	searchPost
+	searchPost,
+	getAzPost
 } = require("../controller/postController");
 const router = express.Router();
 
 router.route("/").get(getAllPost);
 router.route("/word").get(searchPost);
-// router.route("/").delete(deletePost);
+router.route("/filter").get(getAzPost);
 router.route("/:id/createPosts").post(createPost);
 
 router.route("/:id/:postid").get(getPost).delete(deletePost).patch(updatePost);

@@ -18,21 +18,21 @@ const getAllPost = async (req, res) => {
 	}
 };
 
-// const searchPost = async (req, res) => {
-// try {
-// 		const search = req.query.searchData
-// 			? { title: { $regex: req.query.searchData, $options: "i" } }
-// 			: {};
+const getAzPost = async (req, res) => {
+	try {
+		const post = await postModel.find().sort("ase").populate("definition");
 
-// 		const viewData = await postModel.find(search);
+		res.status(200).json({
+			status: "Success",
+			data: post,
+		});
+	} catch (error) {
+		res.status(404).json({
+			message: error.message,
+		});
+	}
+};
 
-// 		res
-// 			.status(200)
-// 			.json({ total: viewData.length, message: "view", data: viewData });
-// 	} catch (error) {
-// 		res.status(404).json({ message: error.message });
-// 	}
-// };
 
 const getPost = async (req, res) => {
 	try {
@@ -141,5 +141,6 @@ module.exports = {
 	createPost,
 	deletePost,
 	updatePost,
-	searchPost
+	searchPost,
+	getAzPost
 };
