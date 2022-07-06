@@ -49,7 +49,7 @@ const verifiedEmail = async (email, user) => {
             subject: "Account Verification",
             html: ` <h3>
             This link will expire after 20 mins. To request another verification
-link, please<a
+link, please <a
             href="https://pidgin-app.herokuapp.com/auth/${user}/${token}"
             >log in</a> to prompt a re-send link.
         </h3>`,
