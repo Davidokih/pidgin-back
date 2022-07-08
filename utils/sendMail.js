@@ -3,6 +3,7 @@ const { google } = require('googleapis');
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 // const userModel = require("../models/userModel");
+const Index = require("../index.html");
 
 const fs = require("fs");
 const { promisify } = require("util");
@@ -47,12 +48,7 @@ const verifiedEmail = async (email, user) => {
             from: "Pidgin ✉️🍾 <pidginapp1@gmail.com>",
             to: email,
             subject: "Account Verification",
-            html: ` <h3>
-            This link will expire after 20 mins. To request another verification
-link, please <a
-            href="https://pidgin-app.herokuapp.com/auth/${user}/${token}"
-            >log in</a> to prompt a re-send link.
-        </h3>`,
+            html: ` ${Index}`,
         };
 
         const result = transport.sendMail(mailOptions);

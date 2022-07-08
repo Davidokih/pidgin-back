@@ -5,35 +5,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+
+    <style>
+        body{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card{
+            width: 500px;
+            height: 500px;
+            border: 1px solid lightgray;
+        }
+        .logoHold{
+            /* background-color: red; */
+            height: 70px;
+            border-bottom: 1px solid lightgray;
+             display: flex;
+  align-items: flex-end;
+  margin-bottom: 20px;
+        }
+        .logoHold span{
+            /* height: 70px; */
+    display: flex;
+    align-items: flex-end;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+        }
+        .logoHold img{
+            width: 65px;
+  height: 70px;
+  /* background-color: red; */
+  object-fit: cover;
+  /* margin: 20px 0px 0px 20px; */
+  border-radius: 3px;
+        }
+        .contentHold{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        button{
+            width: 90px;
+            height: 40px;
+            border: 0;
+            outline: none;
+            background-color: rgb(134, 23, 23);
+            color: white;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+
+        a{
+            text-decoration: none;
+            color: rgb(134, 23, 23);
+            font-weight: 700;
+        }
+        .text{
+            color: gray;
+            font-weight: 800;
+            font-size: 20px;
+            width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
 </head>
-<body style="
-    background-color: lightgray;
-    width: 99%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-">
-<div style="
-    width: 600px;
-    height: 400px;
-    background-color: #fff;
-    overflow: hidden;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-">
-<div style="
-    width: 100%;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-">
-<span>UGPD</span>
-</div>
-<div style="margin: 30px 60pcx;">
-    <span>Hello There</span>
+<body>
+<div class="card">
+    <div class="logoHold">
+        <img src="./WhatsApp Image 2022-07-04 at 1.31.10 PM.jpeg"/>
+        <span>Pidgin</span>
+    </div>
+<div class="contentHold">
+    <span>Email Address Verification</span>
     <br />
     <br />
     <pan>
@@ -41,19 +93,24 @@
     </pan>
     <br />
     <br />
-    <a>Confirm</a>
+    <button>
+        <a href="https://pidgin-app.herokuapp.com/auth/${user}/${token}" style="color: white;">Verify</a>
+    </button>
     <br />
     <br />
-    <span>
-        Or copy and paste the link below into your browser.
+    <span class="text">
+         This link will expire after 20 mins. To request another verification
+link, please <a
+            href="https://pidgin-app.herokuapp.com/auth/${user}/${token}"
+            >log in</a>
         <br />
-        <span>URL</span>
+        <!-- <a  href="https://pidgin-app.herokuapp.com/auth/${user}/${token}">https://pidgin-app.herokuapp.com/auth/${user}/${token}</a> -->
     </span>
 </div>
 
 </div>
-<div>Sub</div>
-<div>Last</div>
+<!-- <div>Sub</div>
+<div>Last</div> -->
     
 </body>
 </html>
