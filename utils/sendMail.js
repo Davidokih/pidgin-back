@@ -49,66 +49,21 @@ const verifiedEmail = async (email, user) => {
             from: "Pidgin ✉️🍾 <pidginapp1@gmail.com>",
             to: email,
             subject: "Account Verification",
-            html: ` <body style=" width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;">
-<div style="  width: 400px;
-            height: 500px;
-            border: 1px solid lightgray;">
-    <div  style="  height: 70px;
-            border-bottom: 1px solid lightgray;
-             display: flex;
-  align-items: flex-end;
-  margin-bottom: 20px;">
+            html: ` <body>
+<div>
+    <div>
         <!-- <img src="./WhatsApp Image 2022-07-04 at 1.31.10 PM.jpeg"/> -->
-        <span style=" display: flex;
-    align-items: flex-end;
-    font-size: 20px;
-    font-weight: bold;
-    color: black;>Pidgin</span>
+        <h1>Pidgin</h1>
     </div>
-<div style="  display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;">
-    <span>Email Address Verification</span>
-    <br />
-    <br />
-    <pan>
+<div>
+    <h3>Email Address Verification</h3>
+    <h4>
         To activate this account, please click the link below.
-    </pan>
+    </h4>
     <br />
-    <br />
-    <button style="  width: 90px;
-            height: 40px;
-            border: 0;
-            outline: none;
-            background-color: rgb(134, 23, 23);
-            color: white;
-            border-radius: 5px;
-            font-weight: 700;">
-        <a href="https://pidgin-app.herokuapp.com/auth/${user}/${token}" style="text-decoration: none;
-            color: rgb(134, 23, 23);
-            font-weight: 700;">Verify</a>
-    </button>
-    <br />
-    <br />
-    <span style="   color: gray;
-            font-weight: 800;
-            font-size: 20px;
-            /* width: 500px; */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;">
-         This link will expire after 20 mins. To request another verification
-link, please <a
-            href="https://pidgin-app.herokuapp.com/auth/${user}/${token}"
-            >log in</a>
-        <br />
-    </span>
+    <h3>
+        <a href="https://pidgin-app.herokuapp.com/auth/${user}/${token}">Verify</a>
+    </h3>
 </div>
 
 </div>

@@ -1,113 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+<html>
+  <head >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,500&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>inline styling</title>
+  </head>
+  <body
+    style="
+      height: 100vh;
+      width: 100%;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: poppins;
+    "
+  >
+    <div
+      style="
+        width: 500px;
+        height: 500px;
+      border-radius: 5px;
 
-    <style>
-        body{
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .card{
-            width: 400px;
-            height: 500px;
-            border: 1px solid lightgray;
-        }
-        .logoHold{
-            /* background-color: red; */
-            height: 70px;
-            border-bottom: 1px solid lightgray;
-             display: flex;
-  align-items: flex-end;
-  margin-bottom: 20px;
-        }
-        .logoHold span{
-            /* height: 70px; */
-    display: flex;
-    align-items: flex-end;
-    font-size: 20px;
-    font-weight: bold;
-    color: black;
-        }
-        .logoHold img{
-            width: 65px;
-  height: 70px;
-  /* background-color: red; */
-  object-fit: cover;
-  /* margin: 20px 0px 0px 20px; */
-  border-radius: 3px;
-        }
-        .contentHold{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
+        background-color: white;
+        /* border-radius: 10px; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
+      <div
+        style="
+        width: 500px;
+        height: 200px;
         
-        button{
-            width: 90px;
-            height: 40px;
-            border: 0;
-            outline: none;
-            background-color: rgb(134, 23, 23);
-            color: white;
-            border-radius: 5px;
-            font-weight: 700;
-        }
-
-        a{
-            text-decoration: none;
-            color: rgb(134, 23, 23);
-            font-weight: 700;
-        }
-        .text{
-            color: gray;
-            font-weight: 800;
-            font-size: 20px;
-            /* width: 500px; */
+        background-color: blue;
+          color: white;
+          font-size: 50px;
+          text-align: center;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-    </style>
-</head>
-<body>
-<div >
-    <div >
-        <!-- <img src="./WhatsApp Image 2022-07-04 at 1.31.10 PM.jpeg"/> -->
-        <span>Pidgin</span>
-    </div>
-<div>
-    <span>Email Address Verification</span>
-    <br />
-    <br />
-    <pan>
-        To activate this account, please click the link below.
-    </pan>
-    <br />
-    <br />
-    <button>
-        <a href="https://pidgin-app.herokuapp.com/auth/${user}/${token}" style="color: white;">Verify</a>
-    </button>
-    <br />
-    <br />
-    <span class="text">
-         This link will expire after 20 mins. To request another verification
-link, please <a
-            href="https://pidgin-app.herokuapp.com/auth/${user}/${token}"
-            >log in</a>
-        <br />
-    </span>
-</div>
-
-</div>
+        justify-content: center;
+        align-items: center;
+          font-weight: 600;
+        "
+      >
     
-</body>
+      <p style="text-align: center; font-size: 70px;">pidgin</p>
+        
+      </div>
+
+      <p style="color: black; margin-top: 20px; font-weight: 600; font-size: 30px">Verify your email address</p>
+
+      <!-- <p style="color: black;font-weight: 600; margin-top: 20px; font-size: 26px">hi,</p> -->
+      <p style="color: black; font-weight: 600; margin-bottom: 50px;font-size: 16px;font-weight: 500; text-align: center">
+        you are almost ready to get started, please click on the </br>button
+        below to verify your email address and start learning </br>amazing pidgin
+        words💞💞💖💘💘💘
+      </p>
+
+      <div
+        style="
+          width: 400px;
+          margin-bottom: 30px;
+          height: 40px;
+          font-size: 15px;
+          font-weight: 600;
+          background-color: red;
+          border-radius: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          /* flex-direction: column; */
+        "
+      >
+       <a href="https://pidgin-app.herokuapp.com/auth/${user}/${token}" > Verify your account</a>
+      </div>
+    </div>
+  </body>
 </html>
