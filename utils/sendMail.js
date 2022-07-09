@@ -26,7 +26,7 @@ oAuthPass.setCredentials({ refresh_token: REFRESH_TOKEN });
 const getToken = crypto.randomBytes(32).toString("hex");
 const token = jwt.sign({ getToken }, "ThisIsIt", { expiresIn: "3d" });
 
-const verifiedEmail = async (email, user) => {
+const verifiedEmail = async (email, user, name) => {
     try {
         const createToken = await oAuthPass.getAccessToken();
 
@@ -52,18 +52,26 @@ const verifiedEmail = async (email, user) => {
             html: ` <body>
 <div>
     <div>
-        <!-- <img src="./WhatsApp Image 2022-07-04 at 1.31.10 PM.jpeg"/> -->
-        <h1>Pidgin</h1>
+        <h1 style="font-size: 30px; font-weight: 500;">Thanks for getting started with our Pidgin App</h1>
     </div>
 <div>
-    <h3>Email Address Verification</h3>
+    <h3>Hi ${name}</h3>
     <h4>
-        To activate this account, please click the link below.
+        We need a little more information to complete your registration, including a confirmation of your email address.
     </h4>
     <br />
-    <h3>
+    <button style="font-weight: 500; width: 90px; height: 40px; background-color: red;">
         <a href="https://pidgin-app.herokuapp.com/auth/${user}/${token}">Verify</a>
-    </h3>
+    </button >
+<br />
+<br />
+    <a href="https://pidgin-app.herokuapp.com/auth/${user}/${token}">
+    https://pidgin-app.herokuapp.com/auth/${user}/${token}
+    </a>
+    <br />
+    <h4>
+            If you have problems, please paste the above URL into your web browser.
+    </h4>
 </div>
 
 </div>

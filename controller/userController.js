@@ -129,7 +129,7 @@ const createUser = async (req, res) => {
 			verifiedToken: token,
 		});
 
-		verifiedEmail(email, user._id)
+		verifiedEmail(email, user._id, user.fullName)
 			.then((result) => {
 				console.log(result);
 			})
